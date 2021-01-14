@@ -1,0 +1,17 @@
+extends /layout/master.pug
+
+block body
+
+    div(class="container")
+        div(class="row")
+            div(class="col-md-4 col-2 bg-primary")
+
+            div(class="col-md 8 col-10 bg-info")
+
+    script(src="/socket.io/socket.io.js")
+    script.
+        const socket = io();
+
+        socket.on('message' , message => {
+            console.log(message);
+        })
