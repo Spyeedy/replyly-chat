@@ -6,16 +6,21 @@ block styles
 			max-height: 250px;
 			overflow-y: auto;
 		}
-block body
+		.media-body {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 
-    div(class="container")
-        div(class="row mt-3")
+block body
+	div(class="container")
+		div(class="row mt-3")
 			div(class="col-md-6 col-12 mb-3 mb-md-0")
-                div(class="card")
-                    div(class="card-header justify-content-between d-flex")
+				div(class="card")
+					div(class="card-header justify-content-between d-flex")
 						span(class="font-weight-bold") Users Joined
 						a(href="#collapseUsers" data-toggle="collapse" role="button")
-                            i(class="fas fa-angle-up")
+							i(class="fas fa-angle-up")
 					div(class="card-body collapse show scroll-list" id="collapseUsers")
 						ul(class="list-unstyled mb-0")
 							each username, index in ['Spyeedy', 'Lasteris', 'akpro', 'Haitodo', 'Hubert Blaine Wolfeschlegelsteinhausenbergerdorff_123456789_abcdefghijklmnopqrstuvwxyz Sr.']
@@ -25,13 +30,13 @@ block body
 									div(class="media-body align-self-center")=username
 
 
-            div(class="col-md-6 col-12")
-                div(class="card")
-                    div(class="card-header justify-content-between d-flex")
-                        span(class="font-weight-bold") Chats Available
+			div(class="col-md-6 col-12")
+				div(class="card")
+					div(class="card-header justify-content-between d-flex")
+						span(class="font-weight-bold") Chats Available
 						div
 							a(href="#collapseChats" data-toggle="collapse" role="button")
-                            i(class="fas fa-angle-up")
+								i(class="fas fa-angle-up")
 					div(class="card-body collapse show scroll-list" id="collapseChats")
 
 block scripts
