@@ -18,4 +18,30 @@ block body
                         span(class="font-weight-bold") Chats Available
                         a(class="" href="#collapseChats" data-toggle="collapse" role="button")
                             i(class="fas fa-angle-up")
-                    div(class="card-body collapse show" id="collapseChats")
+block scripts
+	script.
+		$("#collapseUsers").on("hide.bs.collapse", () => {
+			let iconElement = $("a[href='#collapseUsers']>i");
+			iconElement.removeClass();
+			iconElement.addClass("fas fa-angle-down");
+			console.log(iconElement.classes)
+		});
+		$("#collapseUsers").on("show.bs.collapse", () => {
+			let iconElement = $("a[href='#collapseUsers']>i");
+			iconElement.removeClass();
+			iconElement.addClass("fas fa-angle-up");
+			console.log(iconElement.classes)
+		});
+
+		$("#collapseChats").on("hide.bs.collapse", () => {
+			let iconElement = $("a[href='#collapseChats']>i");
+			iconElement.removeClass();
+			iconElement.addClass("fas fa-angle-down");
+			console.log(iconElement.classes)
+		});
+		$("#collapseChats").on("show.bs.collapse", () => {
+			let iconElement = $("a[href='#collapseChats']>i");
+			iconElement.removeClass();
+			iconElement.addClass("fas fa-angle-up");
+			console.log(iconElement.classes)
+		});
