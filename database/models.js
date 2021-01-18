@@ -26,3 +26,11 @@ module.exports.Message = dbConnection.sequelize.define('messages', {
         allowNull: false
     }
 })
+
+module.exports.Room = dbConnection.sequelize.define('rooms', {
+	id: uuidPK,
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})

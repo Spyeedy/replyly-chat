@@ -8,13 +8,16 @@ const sequelize = new Sequelize({
 module.exports.sequelize = sequelize;
 
 
-const {User, Message} = require("./models");
+const { User, Message, Room } = require("./models");
 
 module.exports.setupDB = (drop) => {
     sequelize.authenticate()
     .then(() => console.log("DB connected"))
     .then(() => {
         Message.belongsTo(User);
+        Message.belongsTo(Room);
+        Room.belongsToMany(User, { through: "RoomUsers" })
+        
         sequelize.sync({ force: drop })
     })
     .catch(err => console.log(err));
