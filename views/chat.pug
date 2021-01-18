@@ -1,0 +1,82 @@
+extends /layout/master.pug
+
+block body
+
+    div(class="container")
+        div(class="row mt-3")
+            ul(class="list-unstyled w-100")
+                //- li(class="media")
+                //-     img(src="https://ih1.redbubble.net/image.373016258.2964/flat,128x128,075,t-pad,128x128,f8f8f8.u2.jpg" class="mr-3 avatar-img")
+                //-     div(class="media-body")
+                //-         div
+                //-             span(class="h6 mr-2") Sabine Wren
+                //-             span(class="text-muted") Today at 01:30
+                //-         div Hello
+
+                //- li(class="my-3")
+                //-     div(class="text-center text-muted") A user has joined the chat
+
+    script(src="/socket.io/socket.io.js")
+    script.
+        const socket = io();
+
+        socket.on('joinMessage' , message => {
+            console.log(message);
+            constructMessage(message, 0, null);
+        })
+
+        // userType: 0 for system, 1 for regular user
+        function constructMessage(message, userType, user) {
+            if (userType != 0 && userType != 1) // if not either allowed user types, we don't run the rest
+                return;
+
+            const list = $('ul.list-unstyled');
+            console.log(list[0].children.length);
+            const listItem = document.createElement("li");
+
+            if (list[0].children.length > 0)
+                listItem.classList.add("my-4");
+
+            if (userType == 1) {
+                listItem.classList.add("media");
+
+                const avatarImg = document.createElement("img");
+                avatarImg.classList.add("mr-3", "avatar-img");
+                avatarImg.src = "https://ih1.redbubble.net/image.373016258.2964/flat,128x128,075,t-pad,128x128,f8f8f8.u2.jpg";
+                listItem.append(avatarImg);
+
+                const mediaBody = document.createElement("div");
+                mediaBody.classList.add("media-body");
+                {
+                    const headerContainer = document.createElement("div");
+                    {
+                        const usernameText = document.createElement("span");
+                        usernameText.classList.add("h6", "mr-2");
+                        usernameText.innerText = "Sabine Wren";
+
+                        const dateTimeText = document.createElement("span");
+                        dateTimeText.classList.add("text-muted");
+                        dateTimeText.innerText = "Today at 01:30";
+
+                        headerContainer.append(usernameText);
+                        headerContainer.append(dateTimeText);
+                    }
+                    mediaBody.append(headerContainer);
+
+                    const messageText = document.createElement("div");
+                    messageText.innerText = message;
+                    mediaBody.append(messageText);
+                }
+                listItem.append(mediaBody);
+
+                list.append(listItem);
+            } else if (userType == 0) {
+                const textContainer = document.createElement("div");
+                textContainer.classList.add("text-center", "text-muted");
+                textContainer.innerText = message;
+
+                listItem.append(textContainer);
+            }
+
+            list.append(listItem);
+        }

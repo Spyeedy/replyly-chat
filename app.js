@@ -3,9 +3,17 @@ const http = require('http');
 const express = require('express');
 const socket = require('socket.io');
 
+const dbConnection = require('./database/db_connection');
+const indexRoute = require('./routes/index');
+const chatRoute = require('./routes/chat');
+
+// -- End of imports --
+
 const app = express();
 const server = http.createServer(app);
 const io = socket(server);
+
+dbConnection.setupDB(true);
 
 // Set view engine
 app.set('views', './views');
@@ -15,10 +23,10 @@ app.locals.basedir = path.join(__dirname, './views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.get("/", (req, res) => {
-    res.render('index');
-});
+app.use('/', indexRoute);
+app.use('/chat', chatRoute);
 
+// IO Socket connections
 io.on('connection', (socket) => {
     console.log("Successful socket connection");
 
@@ -26,7 +34,7 @@ io.on('connection', (socket) => {
     socket.emit('message', 'Welcome to Replyly');
 
     // Broadcast when a user connects
-    socket.broadcast.emit('message', 'A user has joined the chat');
+    socket.broadcast.emit('joinMessage', 'A user has joined the chat');
 
     // Runs when client disconnects
     socket.on('disconnect', () => {

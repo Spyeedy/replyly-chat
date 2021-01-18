@@ -3,15 +3,19 @@ extends /layout/master.pug
 block body
 
     div(class="container")
-        div(class="row")
-            div(class="col-md-4 col-2 bg-primary")
+        div(class="row mt-3")
+            div(class="col-md-6 col-12")
+                div(class="card")
+                    div(class="card-header justify-content-between d-flex")
+                        span(class="font-weight-bold") List of Users
+                        a(class="" href="#collapseUsers" data-toggle="collapse" role="button")
+                            i(class="fas fa-angle-up")
+                    div(class="card-body collapse show" id="collapseUsers")
 
-            div(class="col-md 8 col-10 bg-info")
-
-    script(src="/socket.io/socket.io.js")
-    script.
-        const socket = io();
-
-        socket.on('message' , message => {
-            console.log(message);
-        })
+            div(class="col-md-6 col-12")
+                div(class="card")
+                    div(class="card-header justify-content-between d-flex")
+                        span(class="font-weight-bold") Chats Available
+                        a(class="" href="#collapseChats" data-toggle="collapse" role="button")
+                            i(class="fas fa-angle-up")
+                    div(class="card-body collapse show" id="collapseChats")
