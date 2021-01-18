@@ -24,23 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', indexRoute);
-app.use('/chat', chatRoute);
+app.use('/chat', chatRoute.router);
 
 // IO Socket connections
-io.on('connection', (socket) => {
-    console.log("Successful socket connection");
-
-    // Welcome current user
-    socket.emit('message', 'Welcome to Replyly');
-
-    // Broadcast when a user connects
-    socket.broadcast.emit('joinMessage', 'A user has joined the chat');
-
-    // Runs when client disconnects
-    socket.on('disconnect', () => {
-        io.emit('message', 'A user has left the chat');
-    });
-})
+chatRoute.chatSocket(io);
 
 const port = 5000;
 server.listen(port, () => {
