@@ -1,23 +1,39 @@
 extends /layout/master.pug
 
+block styles
+	style.
+		.scroll-list {
+			max-height: 250px;
+			overflow-y: auto;
+		}
 block body
 
     div(class="container")
         div(class="row mt-3")
-            div(class="col-md-6 col-12")
+			div(class="col-md-6 col-12 mb-3 mb-md-0")
                 div(class="card")
                     div(class="card-header justify-content-between d-flex")
-                        span(class="font-weight-bold") List of Users
-                        a(class="" href="#collapseUsers" data-toggle="collapse" role="button")
+						span(class="font-weight-bold") Users Joined
+						a(href="#collapseUsers" data-toggle="collapse" role="button")
                             i(class="fas fa-angle-up")
-                    div(class="card-body collapse show" id="collapseUsers")
+					div(class="card-body collapse show scroll-list" id="collapseUsers")
+						ul(class="list-unstyled mb-0")
+							each username, index in ['Spyeedy', 'Lasteris', 'akpro', 'Haitodo', 'Hubert Blaine Wolfeschlegelsteinhausenbergerdorff_123456789_abcdefghijklmnopqrstuvwxyz Sr.']
+								- let mediaClass = "media" + (index > 0 ? " mt-3" : "");
+								li(class=mediaClass)
+									img(src="https://ih1.redbubble.net/image.373016258.2964/flat,128x128,075,t-pad,128x128,f8f8f8.u2.jpg" class="mr-3 avatar-img align-self-center")
+									div(class="media-body align-self-center")=username
+
 
             div(class="col-md-6 col-12")
                 div(class="card")
                     div(class="card-header justify-content-between d-flex")
                         span(class="font-weight-bold") Chats Available
-                        a(class="" href="#collapseChats" data-toggle="collapse" role="button")
+						div
+							a(href="#collapseChats" data-toggle="collapse" role="button")
                             i(class="fas fa-angle-up")
+					div(class="card-body collapse show scroll-list" id="collapseChats")
+
 block scripts
 	script.
 		$("#collapseUsers").on("hide.bs.collapse", () => {
