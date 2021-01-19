@@ -19,7 +19,7 @@ module.exports.chatSocket = (io) => {
     
         // Runs when client disconnects
         socket.on('disconnect', () => {
-            io.emit('message', 'A user has left the chat');
+            io.emit('userLeft', 'A user has left the chat');
         });
     })
 };
