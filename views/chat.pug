@@ -27,8 +27,8 @@ block body
 		//- 	div(class="text-center text-muted") A user has joined the chat
 
 	div(class="bg-secondary p-3")
-		form(class="d-flex justify-content-between")
-			input(type="text" class="form-control")
+		form(class="d-flex justify-content-between" id="newMessageForm")
+			input(type="text" class="form-control" name="message")
 			button(type="submit" class="ml-3 btn btn-primary") Submit
 
 
@@ -36,22 +36,29 @@ block body
 	script.
 		const socket = io();
 
-		socket.on('joinMessage', message => {
+		$("#newMessageForm").on("submit", e => {
+			e.preventDefault();
+
+			let message = $("#newMessageForm > input[type='text']").val();
+			socket.emit("newMessage", message);
+		})
+
+		socket.on("joinMessage", message => {
 			console.log(message);
 			constructMessage(message, 0, null);
 		});
 
-		socket.on('userLeft', message => {
+		socket.on("userLeft", message => {
 			console.log(message);
 			constructMessage(message, 0, null);
 		});
 
 		// userType: 0 for system, 1 for regular user
 		function constructMessage(message, userType, user) {
-			if (userType != 0 && userType != 1) // if not either allowed user types, we don't run the rest
+			if (userType != 0 && userType != 1) // if not either allowed user types, we don"t run the rest
 				return;
 
-			const list = $('ul.list-unstyled');
+			const list = $("ul.list-unstyled");
 			console.log(list[0].children.length);
 			const listItem = document.createElement("li");
 
