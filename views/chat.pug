@@ -48,6 +48,10 @@ block body
 			constructMessage(message, 0, null);
 		});
 
+		socket.on("newMessage", message => {
+			console.log(message);
+		});
+
 		socket.on("userLeft", message => {
 			console.log(message);
 			constructMessage(message, 0, null);
