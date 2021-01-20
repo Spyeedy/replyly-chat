@@ -35,9 +35,16 @@ block body
 					div(class="card-header justify-content-between d-flex")
 						span(class="font-weight-bold") Chats Available
 						div
+							a(class="badge mr-2 text-muted")
+								i(class="fas fa-plus")
 							a(href="#collapseChats" data-toggle="collapse" role="button")
 								i(class="fas fa-angle-up")
 					div(class="card-body collapse show scroll-list" id="collapseChats")
+						ul(class="list-unstyled mb-0")
+							each val in rooms
+								li=val
+							else
+								li(class="text-center") No chats available to join
 
 block scripts
 	script(src="/js/main.js")
