@@ -6,6 +6,10 @@ router.get("/", (req, res) => {
     res.render("chat");
 });
 
+router.post('/add', (req, res) => {
+
+});
+
 module.exports.router = router;
 module.exports.chatSocket = (io) => {
     io.on("connection", (socket) => {
