@@ -41,8 +41,8 @@ block body
 								i(class="fas fa-angle-up")
 					div(class="card-body collapse show scroll-list" id="collapseChats")
 						ul(class="list-unstyled mb-0")
-							each val in rooms
-								li=val
+							each room in rooms
+								li=room.name
 							else
 								li(class="text-center") No chats available to join
 
