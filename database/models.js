@@ -28,5 +28,9 @@ module.exports.Message = dbConnection.sequelize.define('messages', {
 
 module.exports.Room = dbConnection.sequelize.define('rooms', {
 	id: uuidPK,
-    name: stringAttr(false)
+	name: stringAttr(false),
+	limit: {
+		type: DataTypes.INTEGER,
+		allowNull: true
+	}
 })
