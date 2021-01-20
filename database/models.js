@@ -1,5 +1,5 @@
 const DataTypes = require("sequelize");
-const dbConnection = require("./db_connection");
+const { sequelize } = require("./db_connection");
 
 const uuidPK = {
 	type: DataTypes.UUIDV4,
@@ -16,18 +16,18 @@ const stringAttr = allowNull => {
 	}
 }
 
-module.exports.User = dbConnection.sequelize.define('users', {
+module.exports.User = sequelize.define('users', {
 	id: uuidPK,
     username: stringAttr(false),
     avatar: stringAttr(true)
 })
 
-module.exports.Message = dbConnection.sequelize.define('messages', {
+module.exports.Message = sequelize.define('messages', {
 	id: uuidPK,
     message: stringAttr(false)
 })
 
-module.exports.Room = dbConnection.sequelize.define('rooms', {
+module.exports.Room = sequelize.define('rooms', {
 	id: uuidPK,
 	name: stringAttr(false),
 	limit: {
