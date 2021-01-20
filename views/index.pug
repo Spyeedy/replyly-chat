@@ -35,7 +35,7 @@ block body
 					div(class="card-header justify-content-between d-flex")
 						span(class="font-weight-bold") Chats Available
 						div
-							a(class="badge mr-2 text-muted")
+							a(class="badge mr-2 text-muted" href="#" data-toggle="modal" data-target="#addChatModal")
 								i(class="fas fa-plus")
 							a(href="#collapseChats" data-toggle="collapse" role="button")
 								i(class="fas fa-angle-up")
@@ -45,6 +45,28 @@ block body
 								li=val
 							else
 								li(class="text-center") No chats available to join
+
+	div(class="modal fade" id="addChatModal" tabindex="-1")
+		div(class="modal-dialog")
+			div(class="modal-content")
+				form(action="/chat/add" method="POST" id="addChatForm")
+					div(class="modal-header")
+						h5(class="modal-title") Add New Chat
+						button(type="button" class="close" data-dismiss="modal")
+							span &times;
+
+					div(class="modal-body")
+							div(class="form-group")
+								label(for="name" class="required") Name
+								input(type="text" name="name" id="name" placeholder="Funroom" class="form-control" required)
+
+							div(class="form-group")
+								label(for="maxUsers") User Limit
+								input(type="number" name="maxUsers" id="maxUsers" min="1" step="1" class="form-control")
+
+					div(class="modal-footer")
+						button(type="button" class="btn btn-secondary" data-dismiss="modal") Cancel
+						button(type="submit" class="btn btn-success" data-dismiss="close") Add
 
 block scripts
 	script(src="/js/main.js")
@@ -74,3 +96,32 @@ block scripts
 			iconElement.addClass("fas fa-angle-up");
 			console.log(iconElement.classes)
 		});
+
+		$("#addChatForm").on('submit', e => {
+			e.preventDefault();
+
+			let chatName = $("#addChatForm input[name='name']").val();
+			let maxUsers = $("#addChatForm input[name='maxUsers']").val();
+
+			let formData = {
+				name: chatName
+			};
+
+			if (maxUsers != "" && maxUsers != undefined && maxUsers != null) {
+				formData['maxUsers'] = maxUsers;
+			}
+
+			console.log("chatName", chatName);
+			console.log("maxUsers", maxUsers);
+			console.log(formData);
+
+			$.ajax({
+				url: "/chat/add",
+				type: "POST",
+				data: formData,
+				"success": data => {
+					console.log(data);
+				},
+				"error": err => console.log(err)
+			})
+		})

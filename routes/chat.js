@@ -1,4 +1,5 @@
 const express = require("express");
+const { Room } = require("../database/models");
 
 const router = express.Router();
 
@@ -7,7 +8,22 @@ router.get("/", (req, res) => {
 });
 
 router.post('/add', (req, res) => {
+	let roomDetail = {};
 
+	roomDetail['name'] = req.body.name;
+	
+	if (req.body.maxUsers != "" && req.body.maxUsers != null)
+		roomDetail['limit'] = req.body.maxUsers;
+
+	Room.create(roomDetail).then(room => {
+		if (room != null)
+			res.json({ isSuccess: true });
+		else
+			res.json({ isSuccess: false });
+	}).catch(err => {
+		console.log(err);
+		res.json({ isSuccess: true });
+	});
 });
 
 module.exports.router = router;
