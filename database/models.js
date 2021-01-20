@@ -3,6 +3,7 @@ const dbConnection = require("./db_connection");
 
 const uuidPK = {
 	type: DataTypes.UUIDV4,
+	defaultValue: DataTypes.UUIDV4, // need to set default value in order to be auto-generating the PK
 	allowNull: false,
 	unique: true,
 	primaryKey: true
