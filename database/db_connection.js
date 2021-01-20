@@ -16,7 +16,7 @@ module.exports.setupDB = (drop) => {
     .then(() => {
         Message.belongsTo(User);
         Message.belongsTo(Room);
-        Room.belongsToMany(User, { through: "RoomUsers" })
+        Room.belongsToMany(User, { through: "roomusers" })
         
         sequelize.sync({ force: drop })
     })
