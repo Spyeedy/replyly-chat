@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socket = require('socket.io');
+const bodyParser = require('body-parser');
 
 const dbConnection = require('./database/db_connection');
 const indexRoute = require('./routes/index');
@@ -21,6 +22,10 @@ app.set('view engine', 'pug');
 app.locals.basedir = path.join(__dirname, './views');
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Body Parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Routes
 app.use('/', indexRoute);
