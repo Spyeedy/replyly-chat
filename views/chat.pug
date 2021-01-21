@@ -35,6 +35,9 @@ block body
 	script(src="/socket.io/socket.io.js")
 	script.
 		const socket = io();
+		// Define UserTypes
+		const systemUser = 0;
+		const regularUser = 1;
 
 		$("#newMessageForm").on("submit", e => {
 			e.preventDefault();
@@ -45,7 +48,7 @@ block body
 
 		socket.on("joinMessage", message => {
 			console.log(message);
-			constructMessage(message, 0, null);
+			constructMessage(message, systemUser, null);
 		});
 
 		socket.on("newMessage", message => {
@@ -54,12 +57,12 @@ block body
 
 		socket.on("userLeft", message => {
 			console.log(message);
-			constructMessage(message, 0, null);
+			constructMessage(message, systemUser, null);
 		});
 
 		// userType: 0 for system, 1 for regular user
 		function constructMessage(message, userType, user) {
-			if (userType != 0 && userType != 1) // if not either allowed user types, we don"t run the rest
+			if (userType != systemUser && userType != regularUser) // if not either allowed user types, we don"t run the rest
 				return;
 
 			const list = $("ul.list-unstyled");
@@ -69,7 +72,7 @@ block body
 			if (list[0].children.length > 0)
 				listItem.classList.add("mt-4");
 
-			if (userType == 1) {
+			if (userType == regularUser) {
 				listItem.classList.add("media");
 
 				const avatarImg = document.createElement("img");
@@ -102,7 +105,7 @@ block body
 				listItem.append(mediaBody);
 
 				list.append(listItem);
-			} else if (userType == 0) {
+			} else if (userType == systemUser) {
 				const textContainer = document.createElement("div");
 				textContainer.classList.add("text-center", "text-muted");
 				textContainer.innerText = message;
