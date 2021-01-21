@@ -41,7 +41,7 @@ module.exports.chatSocket = (io) => {
 		
 		socket.on("newMessage", (message) => {
 			console.log("newMessage:", message);
-			io.emit("newMessage", "A new message!");
+			io.emit("newMessage", message);
 		})
     })
 };

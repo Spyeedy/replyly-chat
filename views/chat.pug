@@ -53,6 +53,8 @@ block body
 
 		socket.on("newMessage", message => {
 			console.log(message);
+			console.log(location)
+			constructMessage(message, regularUser, null);
 		});
 
 		socket.on("userLeft", message => {
