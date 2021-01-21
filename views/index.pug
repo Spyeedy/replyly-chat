@@ -121,6 +121,9 @@ block scripts
 				data: formData,
 				"success": data => {
 					console.log(data);
+
+					if (data.isSuccess)
+						$("#collapseChats").load(location.href + ' #collapseChats > *')
 				},
 				"error": err => console.log(err)
 			})
