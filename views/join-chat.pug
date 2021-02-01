@@ -1,0 +1,23 @@
+extends /layout/master.pug
+
+block body
+	div(class="container pt-3")
+		div(class="card")
+			div(class="card-header") Join a Room
+
+			div(class="card-body")
+				form(action="/chat" method="GET")
+					div(class="form-row")
+						div(class="form-group col-12 col-md-6")
+							input(type="text" class="form-control" name="username" placeholder="Sabine Wren" required)
+
+						div(class="form-group col-12 col-md-6")
+							select(class="custom-select" name="room" required)
+								option(selected disabled value="") Select a Chat
+								option(value="Hello") Hello
+								option(value="1") One
+								option(value="1") Two
+
+					button(type="submit" class="btn btn-primary btn-block") Join!
+
+	script.
