@@ -3,11 +3,12 @@ const http = require('http');
 const express = require('express');
 const socket = require('socket.io');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const dbConnection = require('./database/db_connection');
+const passportConfig = require('./passport');
 const indexRoute = require('./routes/index');
 const chatRoute = require('./routes/chat');
-
 // -- End of imports --
 
 const app = express();
@@ -15,6 +16,7 @@ const server = http.createServer(app);
 const io = socket(server);
 
 dbConnection.setupDB(true);
+passportConfig(passport);
 
 // Set view engine
 app.set('views', './views');
@@ -26,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use('/', indexRoute);
