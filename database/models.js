@@ -18,7 +18,7 @@ const stringAttr = allowNull => {
 
 module.exports.User = sequelize.define('users', {
 	id: uuidPK,
-    username: stringAttr(false),
+    username: Object.assign(stringAttr(false), { unique: true }),
     avatar: stringAttr(true)
 })
 
