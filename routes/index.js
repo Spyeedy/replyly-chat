@@ -13,7 +13,11 @@ router.get("/join-chat", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-	res.render("login");
+	res.render("auth/login");
+})
+
+router.post("/login", (req, res) => {
+	res.json(req.body);
 })
 
 module.exports = router;
