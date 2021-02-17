@@ -14,10 +14,18 @@ router.get("/join-chat", (req, res) => {
 
 router.get("/login", (req, res) => {
 	res.render("auth/login");
-})
+});
 
 router.post("/login", (req, res) => {
 	res.json(req.body);
-})
+});
+
+router.get("/register", (req, res) => {
+	res.render("auth/register");
+});
+
+router.post("/register", (req, res) => {
+	res.json(req.body);
+});
 
 module.exports = router;
